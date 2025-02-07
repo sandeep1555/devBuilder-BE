@@ -36,7 +36,7 @@ authRouter.post("/signup", async (req, res) => {
 
         const token = await savedUser.getJWT();
 
-        res.cookie("token", token, { expires: new Date(Date.now() + 8 * 3600000),sameSite: 'None' });
+        res.cookie("token", token, { expires: new Date(Date.now() + 8 * 3600000),sameSite: 'None', httpOnly: true, secure: true });
 
 
         res.json({
@@ -74,7 +74,7 @@ authRouter.post('/login', async (req, res) => {
         const tokenExpireTime = '8h'; // Set token expiry time
         const refreshTokenExpireTime = '30d'; // Set refresh token expiry time
         const role = user.group; // Assuming user role is stored in user model
-        res.cookie('token', token, { expires: new Date(Date.now() + 8 * 3600000) }); // Token expiry set to 8 hours
+        res.cookie('token', token, { expires: new Date(Date.now() + 8 * 3600000) , httpOnly: true, secure: true,sameSite: 'None' }); // Token expiry set to 8 hours
 
         res.send({
             message: 'Login Successfully',
