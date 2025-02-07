@@ -176,7 +176,8 @@ const getRandomLightColor = () => {
         "#fed7aa", // orange-200
         "#fde68a", // amber-200
         "#d9f99d", // lime-200
-        "#a7f3d0"  // emerald-200
+        "#a7f3d0" , // emerald-200
+        "#024F8A", 
     ];
     return colors[Math.floor(Math.random() * colors.length)];
 };

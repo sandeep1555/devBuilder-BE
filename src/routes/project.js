@@ -32,7 +32,7 @@ projectRouter.post("/project/create/:organisationId", userAuth, async (req, res)
     try {
         const { organisationId } = req.params;
 
-        const { name } = req.body;
+        const { name, bgColor } = req.body;
         const { firstName, lastName } = req.user;
         const creatorName = firstName + " " + lastName;
         // Check if projectName is provided
@@ -40,7 +40,7 @@ projectRouter.post("/project/create/:organisationId", userAuth, async (req, res)
             return res.status(400).json({ error: "Project name is required" });
         }
 
-        const newProject = new Project({ name, organisationId: organisationId, bgColor: getRandomLightColor(), createdBy: creatorName });
+        const newProject = new Project({ name, organisationId: organisationId, bgColor: bgColor, createdBy: creatorName });
         const savedProject = await newProject.save();
 
         res.status(200).json({ message: "Project created successfully", data: savedProject });
@@ -56,12 +56,11 @@ projectRouter.post("/project/create/:organisationId", userAuth, async (req, res)
 projectRouter.put("/project/update/:projectId", userAuth, async (req, res) => {
     try {
         const { projectId } = req.params;
-        const { name } = req.body;
-
+        const { name, bgColor } = req.body;
         if (!name) {
             return res.status(400).json({ error: "Project name is required" });
         }
-        const editProject = await Project.findOneAndUpdate({ projectId: projectId }, { name: name }, { new: true });
+        const editProject = await Project.findOneAndUpdate({ projectId: projectId }, { name: name, bgColor: bgColor }, { new: true });
         res.status(200).json({ message: "Project updated successfully", data: editProject });
 
     }
