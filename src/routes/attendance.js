@@ -21,7 +21,7 @@ attendanceRouter.post("/contractor/:contractorId/attendance", userAuth, async (r
 attendanceRouter.get("/contractor/:contractorId/attendance/:projectId", userAuth, async (req, res) => {
     try {
         const { contractorId, projectId } = req.params;
-        const attendanceList = await Attendance.find({ contractorId: contractorId, projectId: projectId });
+        const attendanceList = await Attendance.find({ contractorId: contractorId, projectId: projectId }).sort({date:-1});
         res.status(200).json({ message: "Attendance list got successfully", data: attendanceList })
     }
     catch (err) {

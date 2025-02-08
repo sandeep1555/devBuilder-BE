@@ -32,7 +32,8 @@ remarkRouter.post("/task/:taskId/remarks", userAuth, async (req, res) => {
 remarkRouter.get("/task/:taskId/remarks", userAuth, async (req, res) => {
     try {
         const { taskId } = req.params
-        const remarks = await Remark.find({ taskId: taskId });
+        const remarks = await Remark.find({ taskId: taskId }).sort({added_at: -1 })  // Sort by latest first
+        .limit(20); // Only get the most recent remark;
         res.status(200).json({ message: "comment list Successfully", data: remarks })
     }
 
