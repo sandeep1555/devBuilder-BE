@@ -16,7 +16,7 @@ const projectSchema = new mongoose.Schema({
     },
     organisationId: {
         type: Number,
-        unique: true,
+        required: true
     },
     taskCount: {
         type: Number,

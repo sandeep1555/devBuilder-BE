@@ -49,7 +49,7 @@ projectRouter.post("/project/create/:organisationId", userAuth, async (req, res)
             const messages = Object.values(err.errors).map(e => e.message);
             return res.status(400).json({ error: messages.join(", ") });
         }
-        res.status(500).json({ error: "Internal Server Error" });
+        res.status(500).json({ error: err.message });
     }
 });
 
